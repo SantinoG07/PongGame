@@ -10,7 +10,15 @@ import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableSet;
 import javafx.collections.FXCollections;
 
-public class GameController {
+public class GameController implements Pelota.PuntoListener {
+
+    // Elementos del UI
+    @FXML
+    private Label contador1;
+    @FXML
+    private Label contador2;
+
+    // Elementos del juego
     @FXML
     private Rectangle player1_pos;
     @FXML
@@ -30,15 +38,36 @@ public class GameController {
     public static int HEIGHT = 500;
     public static int WIDTH = 600;
 
+    private int puntos1 = 0;
+    private int puntos2 = 0;
+
+    @Override
+    public void puntoParaJugador1() {
+        puntos1++;
+        contador1.setText(String.format("%03d", puntos1));
+    }
+
+    @Override
+    public void puntoParaJugador2() {
+        puntos2++;
+        contador2.setText(String.format("%03d", puntos2));
+    }
+
     @FXML
     public void initialize() {
-        pelota = new Pelota(pelotaShape, HEIGHT, WIDTH);
 
+        // Instanciar Jugadores
         player1 = new Player(player1_pos, HEIGHT);
         player2 = new Player(player2_pos, HEIGHT);
 
+        // Instanciar Pelota
+        pelota = new Pelota(pelotaShape, HEIGHT, WIDTH, player1, player2);
+        pelota.setPuntoListener(this); // ← Se registra para recibir la “señal”
+
         pelota.velocidad(3);
         pelota.startMoving();
+
+        pelota.pos_inicial(pelota.getShape().getCenterX(), pelota.getShape().getCenterY());
 
         Platform.runLater(() -> { // Corre las funciones después de cargar todo lo de Javafx
             activarControles();

@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.Label ?>
 
 
 <Pane xmlns="http://javafx.com/javafx/23.0.1"
@@ -15,5 +16,7 @@
       <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
       <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
        <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+       <Label fx:id="contador1" layoutX="15" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+       <Label fx:id="contador2" layoutX="545" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
    </children>
 </Pane>
