@@ -6,6 +6,7 @@ module org.example.pong {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires javafx.graphics;
+    requires java.desktop;
 
     opens org.example.pong to javafx.fxml;
     exports org.example.pong;
