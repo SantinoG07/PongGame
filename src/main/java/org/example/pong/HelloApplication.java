@@ -1,0 +1,25 @@
+package org.example.pong;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class HelloApplication extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Game.fxml"));
+        Scene scene = new Scene(fxmlLoader.load()); // quito 320, 240
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.setTitle("Pong Game");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}
