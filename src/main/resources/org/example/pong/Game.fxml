@@ -10,10 +10,10 @@
       fx:controller="org.example.pong.GameController"
       maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0">
+      prefHeight="500.0" prefWidth="600.0">
    <children>
-      <Rectangle arcHeight="5.0" fx:id="player1" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="171.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="player2" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="171.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-      <Circle fill="DODGERBLUE" layoutX="300.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+       <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </Pane>

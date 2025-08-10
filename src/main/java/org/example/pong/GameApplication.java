@@ -17,9 +17,6 @@ public class GameApplication extends Application {
         stage.setTitle("Pong Game");
         stage.setScene(scene);
         stage.show();
-
-        GameController controller = fxmlLoader.getController();
-        controller.Controles();
     }
 
     public static void main(String[] args) {
