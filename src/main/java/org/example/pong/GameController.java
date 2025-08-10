@@ -55,14 +55,13 @@ public class GameController implements Pelota.PuntoListener {
 
     @FXML
     public void initialize() {
-
         // Instanciar Jugadores
         player1 = new Player(player1_pos, HEIGHT);
         player2 = new Player(player2_pos, HEIGHT);
 
         // Instanciar Pelota
         pelota = new Pelota(pelotaShape, HEIGHT, WIDTH, player1, player2);
-        pelota.setPuntoListener(this); // ← Se registra para recibir la “señal”
+        pelota.setPuntoListener(this); // Se registra para recibir la señal
 
         pelota.velocidad(3);
         pelota.startMoving();
