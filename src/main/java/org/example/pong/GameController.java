@@ -1,13 +1,19 @@
 package org.example.pong;
 
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
 
 public class GameController {
+    @FXML
+    private Label tiempo;
     @FXML
     private Line red;
     @FXML
@@ -26,6 +32,11 @@ public class GameController {
     private Rectangle superior;
     @FXML
     private Rectangle inferior;
+
+
+
+    private int segundos = 0;
+    private Timeline lineatemp;
 
     @FXML
     public void initialize() {
@@ -69,6 +80,15 @@ public class GameController {
         red.startXProperty().set(0);
         red.endXProperty().set(0);
 
+
+        lineatemp = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            segundos++;
+            int min = segundos / 60;
+            int seg = segundos % 60;
+            tiempo.setText(String.format("%02d:%02d", min, seg));
+        }));
+        lineatemp.setCycleCount(Timeline.INDEFINITE);
+        lineatemp.play();
 
 
         Controles();
