@@ -1,115 +1,141 @@
 package org.example.pong;
 
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.animation.KeyFrame;
 import javafx.util.Duration;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 
 public class GameController {
-    @FXML
-    private Label tiempo;
-    @FXML
-    private Line red;
-    @FXML
-    private Rectangle player1;
-    @FXML
-    private Rectangle player2;
-    @FXML
-    private Pane root;
-    @FXML
-    private Circle pelota;
-    @FXML
-    private Rectangle lateralI;
-    @FXML
-    private Rectangle lateralD;
-    @FXML
-    private Rectangle superior;
-    @FXML
-    private Rectangle inferior;
 
+    // UI desde FXML
+    @FXML private Label contador1;
+    @FXML private Label contador2;
+    @FXML private Rectangle player1_pos;
+    @FXML private Rectangle player2_pos;
+    @FXML private Circle pelotaShape;
 
+    // Datos del juego
+    private ObservableSet<KeyCode> teclasPresionadas = FXCollections.observableSet();
+    private AnimationTimer gameLoop;
+    private int puntos1 = 0;
+    private int puntos2 = 0;
+    private double velX = 3;
+    private double velY = 3;
 
+    // Timer
+    @FXML private Label tiempo;
     private int segundos = 0;
-    private Timeline lineatemp;
+    private Timeline lineaTiempo;
+
+    // Tamaño del tablero
+    private static final double WIDTH = 600;
+    private static final double HEIGHT = 500;
 
     @FXML
     public void initialize() {
-        // Bind actualiza constantemente, set es fijo
-        player1.layoutXProperty().set(20);
-        player1.layoutYProperty().bind(root.heightProperty().divide(2).subtract(player1.heightProperty().divide(2)));
+        // Centrar pelota
+        pelotaShape.setCenterX(WIDTH / 2);
+        pelotaShape.setCenterY(HEIGHT / 2);
 
-        player2.layoutXProperty().bind(root.widthProperty().subtract(player2.getWidth() + 20));
-        player2.layoutYProperty().bind(root.heightProperty().divide(2).subtract(player2.heightProperty().divide(2)));
+        // Inicializar marcador
+        contador1.setText(String.format("%03d", puntos1));
+        contador2.setText(String.format("%03d", puntos2));
 
-        pelota.layoutXProperty().bind(root.widthProperty().divide(2));
-        pelota.layoutYProperty().bind(root.heightProperty().divide(2));
-
-        lateralI.setWidth(10);
-        lateralD.setWidth(10);
-        lateralI.layoutXProperty().set(0);
-        lateralD.layoutXProperty().bind(root.widthProperty().subtract(lateralD.getWidth()));
-
-        lateralI.heightProperty().bind(root.heightProperty());
-        lateralD.heightProperty().bind(root.heightProperty());
-
-        lateralI.setLayoutY(0);
-        lateralD.setLayoutY(0);
-
-        superior.setHeight(10);
-        inferior.setHeight(10);
-        superior.layoutYProperty().set(0);
-        inferior.layoutYProperty().bind(root.heightProperty().subtract(inferior.getHeight()));
-
-        superior.widthProperty().bind(root.widthProperty());
-        inferior.widthProperty().bind(root.widthProperty());
-
-        superior.setLayoutX(0);
-        inferior.setLayoutX(0);
-
-        red.layoutXProperty().bind(root.widthProperty().divide(2));
-
-        red.startYProperty().set(0);
-        red.endYProperty().bind(root.heightProperty());
-
-        red.startXProperty().set(0);
-        red.endXProperty().set(0);
-
-
-        lineatemp = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        // Timer
+        lineaTiempo = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             segundos++;
             int min = segundos / 60;
             int seg = segundos % 60;
             tiempo.setText(String.format("%02d:%02d", min, seg));
         }));
-        lineatemp.setCycleCount(Timeline.INDEFINITE);
-        lineatemp.play();
+        lineaTiempo.setCycleCount(Timeline.INDEFINITE);
+        lineaTiempo.play();
 
-
-        Controles();
-    }
-
-    public void Controles(){
-        root.setOnKeyPressed(event ->{
-            int paso = 20;
-            if(event.getCode()== KeyCode.O) {
-                player1.setY(player1.getY() - paso);
-            } else if (event.getCode()==KeyCode.L){
-                player1.setY(player1.getY()+paso);
-            }
-            else if(event.getCode()== KeyCode.W) {
-                player2.setY(player2.getY() - paso);
-            } else if (event.getCode()==KeyCode.S){
-                player2.setY(player2.getY()+paso);
-            }
+        Platform.runLater(() -> {
+            activarControles();
+            startGameLoop();
         });
-        root.setFocusTraversable(true);
-        root.requestFocus();
     }
 
+    private void activarControles() {
+        var scene = player1_pos.getScene();
+
+        scene.setOnKeyPressed(e -> teclasPresionadas.add(e.getCode()));
+        scene.setOnKeyReleased(e -> teclasPresionadas.remove(e.getCode()));
+    }
+
+    private void startGameLoop() {
+        gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                moverPaletas();
+                moverPelota();
+            }
+        };
+        gameLoop.start();
+    }
+
+    private void moverPaletas() {
+        double paso = 5;
+
+        if (teclasPresionadas.contains(KeyCode.W) && player1_pos.getY() > 0) {
+            player1_pos.setY(player1_pos.getY() - paso);
+        }
+        if (teclasPresionadas.contains(KeyCode.S) && player1_pos.getY() + player1_pos.getHeight() < HEIGHT) {
+            player1_pos.setY(player1_pos.getY() + paso);
+        }
+        if (teclasPresionadas.contains(KeyCode.O) && player2_pos.getY() > 0) {
+            player2_pos.setY(player2_pos.getY() - paso);
+        }
+        if (teclasPresionadas.contains(KeyCode.L) && player2_pos.getY() + player2_pos.getHeight() < HEIGHT) {
+            player2_pos.setY(player2_pos.getY() + paso);
+        }
+    }
+
+    private void moverPelota() {
+        pelotaShape.setCenterX(pelotaShape.getCenterX() + velX);
+        pelotaShape.setCenterY(pelotaShape.getCenterY() + velY);
+
+        // Rebote vertical
+        if (pelotaShape.getCenterY() - pelotaShape.getRadius() <= 0 ||
+                pelotaShape.getCenterY() + pelotaShape.getRadius() >= HEIGHT) {
+            velY *= -1;
+        }
+
+        // Colisión con paletas
+        if (pelotaShape.getBoundsInParent().intersects(player1_pos.getBoundsInParent()) && velX < 0) {
+            velX *= -1;
+        }
+        if (pelotaShape.getBoundsInParent().intersects(player2_pos.getBoundsInParent()) && velX > 0) {
+            velX *= -1;
+        }
+
+        // Punto jugador 1
+        if (pelotaShape.getCenterX() - pelotaShape.getRadius() <= 0) {
+            puntos2++;
+            contador2.setText(String.format("%03d", puntos2));
+            resetPelota();
+        }
+
+        // Punto jugador 2
+        if (pelotaShape.getCenterX() + pelotaShape.getRadius() >= WIDTH) {
+            puntos1++;
+            contador1.setText(String.format("%03d", puntos1));
+            resetPelota();
+        }
+    }
+
+    private void resetPelota() {
+        pelotaShape.setCenterX(WIDTH / 2);
+        pelotaShape.setCenterY(HEIGHT / 2);
+        velX *= -1; // cambiar dirección al reiniciar
+    }
 }

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
 
-<StackPane fx:controller="org.example.pong.MenuController" xmlns:fx="http://javafx.com/fxml" prefWidth="600.0" prefHeight="400.0">
-    <!-- VBox para el texto y los botones -->
-    <VBox alignment="CENTER" spacing="20" prefWidth="400.0">
-        <!-- Texto de bienvenida -->
-        <Text text="Pong Game">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Text>
 
-        <!-- Espacio entre el texto y los botones -->
-        <VBox spacing="20" alignment="CENTER">
-            <Button fx:id="jugarButton" text="Jugar" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-            <Button fx:id="configurarButton" text="Configurar" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-            <Button fx:id="salirButton" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-        </VBox>
-    </VBox>
-</StackPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="257.0" layoutY="293.0" mnemonicParsing="false" text="Iniciar" />
+      <Label layoutX="213.0" layoutY="47.0" text="Bienvenido al Pong Game" />
+      <CheckBox layoutX="250.0" layoutY="258.0" mnemonicParsing="false" text="Rafagas" />
+      <CheckBox layoutX="230.0" layoutY="200.0" mnemonicParsing="false" text="Limite de goles" />
+      <CheckBox layoutX="225.0" layoutY="155.0" mnemonicParsing="false" text="Limite de tiempo" />
+      <Slider layoutX="211.0" layoutY="228.0" />
+      <Slider layoutX="210.0" layoutY="181.0" />
+      <MenuButton layoutX="232.0" layoutY="103.0" mnemonicParsing="false" text="Velocidad">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</Pane>

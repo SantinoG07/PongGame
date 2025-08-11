@@ -3,25 +3,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.Label ?>
 
 
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.control.Label?>
 <Pane xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.pong.GameController"
       maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #5cbcc6" fx:id="root">
+      prefHeight="500.0" prefWidth="600.0">
    <children>
-      <Line fx:id="red" startX="300" endX="300" endY="400" stroke="WHITE" strokeWidth="6" strokeDashArray="20, 20"/>
-      <Label fx:id="tiempo" layoutX="270" layoutY="20" style="-fx-font-size: 24px; -fx-text-fill: white;" text="00:00" />
-      <Rectangle arcHeight="5.0" fx:id="player1" arcWidth="5.0" fill="white" height="58.0" layoutX="14.0" layoutY="171.0"  width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="player2" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="171.0"  width="10.0" />
-      <Circle fill="white" layoutX="300.0" layoutY="200.0" radius="8.0" fx:id="pelota"/>
-      <Rectangle arcHeight="5.0" fx:id="lateralI" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="171.0"  width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="lateralD" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="171.0"  width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="superior" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="171.0"  width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="inferior" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="171.0"  width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="contador1" layoutX="15" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+      <Label fx:id="contador2" layoutX="545" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
    </children>
 </Pane>
