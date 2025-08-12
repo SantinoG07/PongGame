@@ -7,6 +7,7 @@ module org.example.pong {
     requires org.kordamp.bootstrapfx.core;
     requires javafx.graphics;
     requires java.desktop;
+    requires java.sql;
 
     opens org.example.pong to javafx.fxml;
     exports org.example.pong;

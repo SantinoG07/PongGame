@@ -1,0 +1,53 @@
+/* Fondo general de la ventana */
+.root {
+    -fx-background-color: black;
+    -fx-font-family: Arial, sans-serif;
+}
+
+/* Texto con borde blanco (para "Pong Game") */
+.titulo {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-padding: 50 100 50 100; /* arriba, derecha, abajo, izquierda */
+    -fx-font-size: 36px;
+    -fx-alignment: center;
+}
+
+
+/* Botones estilo minimalista */
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* Botón "Jugar" especial */
+.jugar {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 50px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* Efecto hover */
+.button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.jugar:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+}
+
+/* Efecto presionado */
+.button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}

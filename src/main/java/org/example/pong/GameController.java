@@ -5,31 +5,47 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
+import java.io.IOException;
+import java.sql.Time;
+
 public class GameController implements Pelota.PuntoListener {
 
-    // UI desde FXML
-    @FXML private Label contador1;
-    @FXML private Label contador2;
-    @FXML private Rectangle player1_pos;
-    @FXML private Rectangle player2_pos;
-    @FXML private Circle pelotaShape;
+    @FXML
+    private Label contador1;
+    @FXML
+    private Label contador2;
+    @FXML
+    private Label contadorLabel;
+    @FXML
+    private Rectangle player1_pos;
+    @FXML
+    private Rectangle player2_pos;
+    @FXML
+    private Circle pelotaShape;
 
     private Pelota pelota;
 
     private Player player1;
     private Player player2;
 
-    // Datos del juego
     private ObservableSet<KeyCode> teclasPresionadas = FXCollections.observableSet();
     private AnimationTimer gameLoop;
+
+
     private int puntos1 = 0;
     private int puntos2 = 0;
 
@@ -42,6 +58,9 @@ public class GameController implements Pelota.PuntoListener {
     private Label overtime;
     private int segundos = 0;
     private Timeline lineaTiempo;
+    @FXML
+    private Pane menu;
+
 
 
     // Finalizadores del Juego
@@ -127,6 +146,7 @@ public class GameController implements Pelota.PuntoListener {
             @Override
             public void handle(long now) {
                 moverPaletas();
+                pausar();
 
                 if (maximo_puntaje > 0) {
                     if (puntos1 >= maximo_puntaje) {
@@ -166,6 +186,64 @@ public class GameController implements Pelota.PuntoListener {
         lineaTiempo.stop();
     }
 
+    @FXML
+    private void volverAlMenuPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+            Parent menuPrincipalRoot = loader.load();
+
+            Scene escenaActual = menu.getScene();
+
+            escenaActual.setRoot(menuPrincipalRoot);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private boolean juegoPausado = false;
+
+    private void pausar() {
+        if (teclasPresionadas.contains(KeyCode.ESCAPE)) {
+            if (!juegoPausado) {
+                pausar_fisica();
+                menu.setVisible(true);
+                juegoPausado = true;
+            } else {
+                contadorR();
+            }
+        }
+    }
+
+
+    private Timeline countdownTimeline;
+    private int segundosRestantes;
+    public void contadorR(){
+        menu.setVisible(false);
+        segundosRestantes = 5;
+        contadorLabel.setText("Reanudando en: " + segundosRestantes + " s");
+        contadorLabel.setVisible(true);
+        countdownTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            segundosRestantes--;
+            if (segundosRestantes > 0) {
+                contadorLabel.setText("Reanudando en: " + segundosRestantes + " s");
+            } else {
+                contadorLabel.setVisible(false);
+                juegoPausado = false;
+                gameLoop.start();
+                pelota.despausar();  //ERRORRR
+                lineaTiempo.play();
+            }
+        }));
+        countdownTimeline.setCycleCount(segundosRestantes);
+        countdownTimeline.play();
+
+    }
+
+
     private void moverPaletas() {
 
         if (teclasPresionadas.contains(KeyCode.W)) {
@@ -181,4 +259,5 @@ public class GameController implements Pelota.PuntoListener {
             player2.moveDown();
         }
     }
+
 }

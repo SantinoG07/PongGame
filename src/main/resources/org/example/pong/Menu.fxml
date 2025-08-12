@@ -6,19 +6,12 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:controller="org.example.pong.MenuController" xmlns:fx="http://javafx.com/fxml" prefWidth="600.0" prefHeight="400.0">
-    <!-- VBox para el texto y los botones -->
     <VBox alignment="CENTER" spacing="20" prefWidth="400.0">
-        <!-- Texto de bienvenida -->
-        <Text text="Pong Game">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Text>
+        <Text text="Pong Game" styleClass="titulo"/>
 
-        <!-- Espacio entre el texto y los botones -->
         <VBox spacing="20" alignment="CENTER">
-            <Button fx:id="inicioButton" text="Jugar" onAction="#subMenu" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-            <Button fx:id="salirButton" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
+            <Button fx:id="inicioButton" text="Jugar" onAction="#subMenu" maxWidth="300.0" styleClass="jugar"/>
+            <Button fx:id="salirButton" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" styleClass="button"/>
         </VBox>
     </VBox>
 </StackPane>

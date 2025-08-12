@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label ?>
 
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 <Pane xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.pong.GameController"
@@ -33,5 +35,21 @@
        <Label layoutX="15" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 1" />
        <Label layoutX="490" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 2" />
 
+
    </children>
+    <Pane fx:id="menu" visible="false" style="-fx-background-color: rgba(0,0,0,0.7);" prefWidth="600" prefHeight="500">
+        <children>
+            <VBox alignment="CENTER" spacing="20" layoutX="150" layoutY="150" prefWidth="300" prefHeight="200" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+                <Label text="Pausa" style="-fx-font-size: 24px; -fx-text-fill: black;"/>
+                <Button text="Reanudar" onAction="#contadorR" prefWidth="100"/>
+                <Button text="Salir" onAction="#volverAlMenuPrincipal" prefWidth="100"/>
+                <Button text="Silenciar musica" prefWidth="100"/>
+                <Button text="Silenciar FX" prefWidth="100"/>
+            </VBox>
+        </children>
+    </Pane>
+
+   <Label visible="false" fx:id="contadorLabel" text="contadorLabel" style="-fx-font-size: 24px; -fx-text-fill: black;" />
+
+
 </Pane>
