@@ -13,7 +13,7 @@ public class GameApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("Menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-        stage.setTitle("Pong Game Menu");
+        stage.setTitle("Pong Game");
         stage.show();
     }
 

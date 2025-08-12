@@ -13,10 +13,25 @@
       minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="500.0" prefWidth="600.0">
    <children>
-      <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-      <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="contador1" layoutX="15" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
-      <Label fx:id="contador2" layoutX="545" layoutY="20" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+
+       <!-- Jugadores -->
+      <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+
+       <!-- Pelota -->
+       <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+
+       <!-- Contador -->
+       <Label fx:id="contador1" layoutX="15" layoutY="45" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+       <Label fx:id="contador2" layoutX="545" layoutY="45" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+
+       <!-- Tiempo -->
+       <Label fx:id="tiempo" layoutX="275.0" layoutY="25.0" style="-fx-font-size: 32px; -fx-text-fill: black;" text="00:00" />
+       <Label fx:id="overtime" layoutX="255.0" layoutY="65.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Tiempo Extra" />
+
+       <!-- Name Jugador -->
+       <Label layoutX="15" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 1" />
+       <Label layoutX="490" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 2" />
+
    </children>
 </Pane>

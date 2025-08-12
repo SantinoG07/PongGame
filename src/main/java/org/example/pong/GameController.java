@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-public class GameController {
+public class GameController implements Pelota.PuntoListener {
 
     // UI desde FXML
     @FXML private Label contador1;
@@ -22,32 +22,68 @@ public class GameController {
     @FXML private Rectangle player2_pos;
     @FXML private Circle pelotaShape;
 
+    private Pelota pelota;
+
+    private Player player1;
+    private Player player2;
+
     // Datos del juego
     private ObservableSet<KeyCode> teclasPresionadas = FXCollections.observableSet();
     private AnimationTimer gameLoop;
     private int puntos1 = 0;
     private int puntos2 = 0;
-    private double velX = 3;
-    private double velY = 3;
+
+    private double vel_inicial;
 
     // Timer
-    @FXML private Label tiempo;
+    @FXML
+    private Label tiempo;
+    @FXML
+    private Label overtime;
     private int segundos = 0;
     private Timeline lineaTiempo;
+
+
+    // Finalizadores del Juego
+
+    private int minuto_final = 0;
+    private int maximo_puntaje = 0;
 
     // Tamaño del tablero
     private static final double WIDTH = 600;
     private static final double HEIGHT = 500;
 
-    @FXML
-    public void initialize() {
-        // Centrar pelota
-        pelotaShape.setCenterX(WIDTH / 2);
-        pelotaShape.setCenterY(HEIGHT / 2);
-
-        // Inicializar marcador
+    @Override
+    public void puntoParaJugador1() {
+        puntos1++;
         contador1.setText(String.format("%03d", puntos1));
+    }
+
+    @Override
+    public void puntoParaJugador2() {
+        puntos2++;
         contador2.setText(String.format("%03d", puntos2));
+    }
+
+    public void setParametros(int velocidad, int minuto, int goles) {
+        if(velocidad == 1){
+            vel_inicial = 3;
+        } else if (velocidad == 2){
+            vel_inicial = 4.5;
+        } else {
+            vel_inicial = 6;
+        }
+
+        minuto_final = minuto;
+        maximo_puntaje = goles;
+
+
+        // Instanciar Pelota
+        pelota = new Pelota(pelotaShape, HEIGHT, WIDTH, player1, player2);
+        pelota.setPuntoListener(this); // Se registra para recibir la señal
+
+        pelota.velocidad(vel_inicial);
+        pelota.startMoving();
 
         // Timer
         lineaTiempo = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
@@ -58,8 +94,22 @@ public class GameController {
         }));
         lineaTiempo.setCycleCount(Timeline.INDEFINITE);
         lineaTiempo.play();
+    }
 
-        Platform.runLater(() -> {
+    @FXML
+    public void initialize() {
+
+        overtime.setVisible(false);
+
+        // Instanciar Jugadores
+        player1 = new Player(player1_pos, HEIGHT);
+        player2 = new Player(player2_pos, HEIGHT);
+
+        // Inicializar marcador
+        contador1.setText(String.format("%03d", puntos1));
+        contador2.setText(String.format("%03d", puntos2));
+
+        Platform.runLater(() -> { // Corre las funciones después de cargar todo lo de Javafx
             activarControles();
             startGameLoop();
         });
@@ -77,65 +127,58 @@ public class GameController {
             @Override
             public void handle(long now) {
                 moverPaletas();
-                moverPelota();
+
+                if (maximo_puntaje > 0) {
+                    if (puntos1 >= maximo_puntaje) {
+                        pausar_fisica();
+                        System.out.print("Jugador 1 ganó");
+                    } else if (puntos2 >= maximo_puntaje) {
+                        pausar_fisica();
+                        System.out.print("Jugador 2 Ganó");
+                    }
+                }
+
+                if (minuto_final > 0) {
+                    int minutos_jugados = segundos / 60;
+                    if (minutos_jugados >= minuto_final) {
+
+                        if (puntos1 > puntos2){
+                            pausar_fisica();
+                            System.out.print("Jugador 1 ganó");
+                        } else if (puntos2 > puntos1){
+                            pausar_fisica();
+                            System.out.print("Jugador 2 ganó");
+                        } else {
+                            overtime.setVisible(true);
+                            maximo_puntaje = puntos1+1;
+                        }
+
+                    }
+                }
             }
         };
         gameLoop.start();
     }
 
+    private void pausar_fisica(){
+        gameLoop.stop();
+        pelota.stopMoving();
+        lineaTiempo.stop();
+    }
+
     private void moverPaletas() {
-        double paso = 5;
 
-        if (teclasPresionadas.contains(KeyCode.W) && player1_pos.getY() > 0) {
-            player1_pos.setY(player1_pos.getY() - paso);
+        if (teclasPresionadas.contains(KeyCode.W)) {
+            player1.moveUp();
         }
-        if (teclasPresionadas.contains(KeyCode.S) && player1_pos.getY() + player1_pos.getHeight() < HEIGHT) {
-            player1_pos.setY(player1_pos.getY() + paso);
+        if (teclasPresionadas.contains(KeyCode.S)) {
+            player1.moveDown();
         }
-        if (teclasPresionadas.contains(KeyCode.O) && player2_pos.getY() > 0) {
-            player2_pos.setY(player2_pos.getY() - paso);
+        if (teclasPresionadas.contains(KeyCode.O)) {
+            player2.moveUp();
         }
-        if (teclasPresionadas.contains(KeyCode.L) && player2_pos.getY() + player2_pos.getHeight() < HEIGHT) {
-            player2_pos.setY(player2_pos.getY() + paso);
+        if (teclasPresionadas.contains(KeyCode.L)) {
+            player2.moveDown();
         }
-    }
-
-    private void moverPelota() {
-        pelotaShape.setCenterX(pelotaShape.getCenterX() + velX);
-        pelotaShape.setCenterY(pelotaShape.getCenterY() + velY);
-
-        // Rebote vertical
-        if (pelotaShape.getCenterY() - pelotaShape.getRadius() <= 0 ||
-                pelotaShape.getCenterY() + pelotaShape.getRadius() >= HEIGHT) {
-            velY *= -1;
-        }
-
-        // Colisión con paletas
-        if (pelotaShape.getBoundsInParent().intersects(player1_pos.getBoundsInParent()) && velX < 0) {
-            velX *= -1;
-        }
-        if (pelotaShape.getBoundsInParent().intersects(player2_pos.getBoundsInParent()) && velX > 0) {
-            velX *= -1;
-        }
-
-        // Punto jugador 1
-        if (pelotaShape.getCenterX() - pelotaShape.getRadius() <= 0) {
-            puntos2++;
-            contador2.setText(String.format("%03d", puntos2));
-            resetPelota();
-        }
-
-        // Punto jugador 2
-        if (pelotaShape.getCenterX() + pelotaShape.getRadius() >= WIDTH) {
-            puntos1++;
-            contador1.setText(String.format("%03d", puntos1));
-            resetPelota();
-        }
-    }
-
-    private void resetPelota() {
-        pelotaShape.setCenterX(WIDTH / 2);
-        pelotaShape.setCenterY(HEIGHT / 2);
-        velX *= -1; // cambiar dirección al reiniciar
     }
 }

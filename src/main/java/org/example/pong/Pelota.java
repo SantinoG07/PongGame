@@ -2,11 +2,15 @@ package org.example.pong;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Circle;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class Pelota {
 
     private double vel_inicial;
     private double max_vel = 30;
+    private double ult_velocidad;
+
     private final Circle shape;
 
     private double dx; // velocidad horizontal
@@ -15,13 +19,12 @@ public class Pelota {
     private final double height;
     private final double width;
 
-    private double x_inicial;
-    private double y_inicial;
-
     private final Player player1;
     private final Player player2;
 
     private PuntoListener listener; // referencia al que escucha
+
+    private boolean pausa = false;
 
     public interface PuntoListener {
         void puntoParaJugador1();
@@ -30,11 +33,6 @@ public class Pelota {
 
     public void setPuntoListener(PuntoListener listener) {
         this.listener = listener;
-    }
-
-    public void pos_inicial(double x,double y){
-        x_inicial = x;
-        y_inicial = y;
     }
 
     public void velocidad(double vel) {
@@ -51,19 +49,31 @@ public class Pelota {
 
     public void startMoving() {
         dx = vel_inicial;
-        dy = 6;
+        dy = vel_inicial;
+
+        PauseTransition pausa_ = new PauseTransition(Duration.seconds(1));
+        pausa_.setOnFinished(e -> {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if(pausa){
+                    stop();
+                }
+
                 mover();
 
                 if(shape.getBoundsInParent().intersects(player1.getShape().getBoundsInParent()) ||
                         shape.getBoundsInParent().intersects(player2.getShape().getBoundsInParent())) {
                     choque();
                 }
+
+
             }
         };
         timer.start();
+        });
+        pausa_.play();
+
     }
 
     public Circle getShape() {
@@ -101,24 +111,50 @@ public class Pelota {
         dx *= -1;
 
         if (Math.abs(dx) < max_vel) {
-            dx *= 1.1;
+            dx += Math.copySign(0.5, dx);
+            dy += Math.copySign(0.5, dy);
 
-            // Si se pasa del limite se queda en 45
+            // Si se pasa del limite se queda en la velocidad maxima
             if (Math.abs(dx) > max_vel) {
                 dx = Math.copySign(max_vel, dx);
+                dy = Math.copySign(max_vel, dy);
             }
         }
     }
 
     private void reiniciar(){
         // Posición inicial
-        shape.setCenterX(x_inicial);
-        shape.setCenterY(y_inicial);
+        shape.setCenterX(width/2);
+        shape.setCenterY((height + 100) / 2);
 
-        // Velocidad inicial
-        dx = Math.copySign(vel_inicial, dx);
+        dx = 0;
+        dy = 0;
 
         // Sonido de anotar
         SoundPlayer.playSound("src/main/resources/sonidos/punto.wav");
+
+        PauseTransition pausa_ = new PauseTransition(Duration.seconds(1));
+        pausa_.setOnFinished(e -> {
+            dx = Math.copySign(vel_inicial, Math.random() < 0.5 ? -1 : 1);
+            dy = Math.copySign(vel_inicial, Math.random() < 0.5 ? -1 : 1);
+        });
+        pausa_.play();
+    }
+
+    public void stopMoving(){
+        ult_velocidad = dx;
+
+        dx = 0;
+        dy = 0;
+
+        pausa = true;
+    }
+
+    public void despausar(){ // Usar para despausar la pelota después de una pausa mid-game
+
+        dx = ult_velocidad;
+        dy = ult_velocidad;
+
+        pausa = false;
     }
 }

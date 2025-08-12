@@ -7,14 +7,43 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="org.example.pong.MenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Slider blockIncrement="1.0" layoutX="245.0" layoutY="138.0" max="3.0" min="1.0" />
-      <Slider blockIncrement="1.0" layoutX="238.0" layoutY="307.0" max="10.0" min="1.0" />
-      <Slider blockIncrement="5.0" layoutX="245.0" layoutY="219.0" max="1000.0" />
-      <CheckBox layoutX="249.0" layoutY="192.0" mnemonicParsing="false" text="Goles para ganar" />
-      <CheckBox layoutX="245.0" layoutY="280.0" mnemonicParsing="false" text="Limite de tiempo" />
-      <Text layoutX="274.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidad" />
-      <Button layoutX="282.0" layoutY="332.0" mnemonicParsing="false" text="Jugar" />
+       <Slider fx:id="sliderVelocidad"
+               layoutX="245.0" layoutY="138.0"
+               min="1.0" max="3.0"
+               blockIncrement="1.0"
+               majorTickUnit="1.0"
+               minorTickCount="0"
+               snapToTicks="true"
+               showTickMarks="true"
+               showTickLabels="true" />
+
+       <Slider fx:id="sliderTiempo"
+               layoutX="238.0" layoutY="307.0"
+               min="1.0" max="10.0"
+               blockIncrement="1.0"
+               majorTickUnit="1.0"
+               minorTickCount="0"
+               snapToTicks="true"
+               showTickMarks="true"
+               showTickLabels="true" />
+
+       <Slider fx:id="sliderGoles"
+               layoutX="245.0" layoutY="219.0"
+               max="30.0" min="5.0"
+               blockIncrement="5.0"
+               majorTickUnit="5.0"
+               minorTickCount="0"
+               snapToTicks="true"
+               showTickMarks="true"
+               showTickLabels="true" />
+
+      <CheckBox fx:id="checkGoles" layoutX="249.0" layoutY="192.0" mnemonicParsing="false" text="Goles para ganar" />
+      <CheckBox fx:id="checkTiempo" layoutX="245.0" layoutY="280.0" mnemonicParsing="false" text="Limite de tiempo" />
+
+       <Text layoutX="274.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidad" />
+
+      <Button fx:id="jugarButton" layoutX="282.0" layoutY="350.0" onAction="#jugarJuego" mnemonicParsing="false" text="Jugar" />
    </children>
 </Pane>

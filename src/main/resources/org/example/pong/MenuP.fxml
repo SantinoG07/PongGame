@@ -16,7 +16,7 @@
         <Button fx:id="musica" text="Mute Music" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
         <Button fx:id="efectos" text="Mute FX" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
         <VBox spacing="20" alignment="CENTER">
-            <Button fx:id="reanudar" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
+            <Button fx:id="jugarButton" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
             <Button fx:id="salir" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
         </VBox>
     </VBox>
