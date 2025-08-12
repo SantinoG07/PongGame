@@ -57,7 +57,7 @@ public class Pelota {
             @Override
             public void handle(long now) {
                 if(pausa){
-                    stop();
+                    return;
                 }
 
                 mover();

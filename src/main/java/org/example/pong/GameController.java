@@ -201,9 +201,6 @@ public class GameController implements Pelota.PuntoListener {
         }
     }
 
-
-
-
     private boolean juegoPausado = false;
 
     private void pausar() {
