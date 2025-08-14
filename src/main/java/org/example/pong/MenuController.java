@@ -1,10 +1,12 @@
 package org.example.pong;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
@@ -94,5 +96,12 @@ public class MenuController {
     @FXML
     private void salirAplicacion() {
         System.exit(0);
+    }
+
+    public void pausarg() {
+        SoundPlayer.stopSound();
+    }
+
+    public void salirmenu(ActionEvent actionEvent) {
     }
 }

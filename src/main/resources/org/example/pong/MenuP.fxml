@@ -5,7 +5,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:controller="org.example.pong.MenuController" xmlns:fx="http://javafx.com/fxml" prefWidth="600.0" prefHeight="400.0">
+<StackPane fx:controller="org.example.pong.MenuController" xmlns:fx="http://javafx.com/fxml" prefWidth="600.0" prefHeight="400.0" stylesheets="@estilosmenu.css" >
+
     <VBox alignment="CENTER" spacing="20" prefWidth="400.0">
         <Text text="Pong Game">
             <font>
@@ -13,11 +14,11 @@
             </font>
         </Text>
 
-        <Button fx:id="musica" text="Mute Music" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-        <Button fx:id="efectos" text="Mute FX" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
+        <Button fx:id="musica" text="Mute goal" onAction="#pausarg" maxWidth="300.0"  styleClass="button"/>
+        <Button fx:id="efectos" text="Mute FX" onAction="#jugarJuego" maxWidth="300.0" styleClass="button"/>
         <VBox spacing="20" alignment="CENTER">
-            <Button fx:id="jugarButton" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
-            <Button fx:id="salir" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" style="-fx-font-size: 24px; -fx-padding: 10px;"/>
+            <Button fx:id="jugarButton" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" styleClass="button"/>
+            <Button fx:id="salir" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" styleClass="button"/>
         </VBox>
     </VBox>
 </StackPane>

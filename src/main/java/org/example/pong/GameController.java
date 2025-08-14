@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -150,9 +151,11 @@ public class GameController implements Pelota.PuntoListener {
 
                 if (maximo_puntaje > 0) {
                     if (puntos1 >= maximo_puntaje) {
+                        ganador(1);
                         pausar_fisica();
                         System.out.print("Jugador 1 ganó");
                     } else if (puntos2 >= maximo_puntaje) {
+                        ganador(2);
                         pausar_fisica();
                         System.out.print("Jugador 2 Ganó");
                     }
@@ -163,9 +166,11 @@ public class GameController implements Pelota.PuntoListener {
                     if (minutos_jugados >= minuto_final) {
 
                         if (puntos1 > puntos2){
+                            ganador(1);
                             pausar_fisica();
                             System.out.print("Jugador 1 ganó");
                         } else if (puntos2 > puntos1){
+                            ganador(2);
                             pausar_fisica();
                             System.out.print("Jugador 2 ganó");
                         } else {
@@ -179,6 +184,28 @@ public class GameController implements Pelota.PuntoListener {
         };
         gameLoop.start();
     }
+
+    private void ganador(int numerog) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pong/MenuF.fxml"));
+            Parent menuRoot = loader.load();
+
+            Stage stage = (Stage) player1_pos.getScene().getWindow();
+            stage.getScene().setRoot(menuRoot);
+
+            Label ganadorLabel = (Label) menuRoot.lookup("#ganador");
+            if (ganadorLabel != null) {
+                ganadorLabel.setText("Ganador: Jugador " + numerog);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
     private void pausar_fisica(){
         gameLoop.stop();
