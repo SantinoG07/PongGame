@@ -62,10 +62,14 @@ public class Pelota {
 
                 mover();
 
-                if(shape.getBoundsInParent().intersects(player1.getShape().getBoundsInParent()) ||
-                        shape.getBoundsInParent().intersects(player2.getShape().getBoundsInParent())) {
-                    choque();
+                if(shape.getBoundsInParent().intersects(player1.getShape().getBoundsInParent())) {
+                    choque(player1);
+
                 }
+                if(shape.getBoundsInParent().intersects(player2.getShape().getBoundsInParent())) {
+                    choque(player2);
+                }
+
 
 
             }
@@ -105,24 +109,29 @@ public class Pelota {
         }
     }
 
-    public void choque(){
-        // Choque con paletas
+    public void choque(Player player) {
+        // Sonido
         SoundPlayer.playSound("src/main/resources/sonidos/choque.wav");
+
+        if (player == player1) { // lado izquierdo
+            shape.setCenterX(player.getShape().getBoundsInParent().getMaxX() + shape.getRadius());
+        } else if (player == player2) { // lado derecho
+            shape.setCenterX(player.getShape().getBoundsInParent().getMinX() - shape.getRadius());
+        }
+
         dx *= -1;
-
-
 
         if (Math.abs(dx) < max_vel) {
             dx += Math.copySign(0.5, dx);
             dy += Math.copySign(0.5, dy);
 
-            // Si se pasa del limite se queda en la velocidad maxima
             if (Math.abs(dx) > max_vel) {
                 dx = Math.copySign(max_vel, dx);
                 dy = Math.copySign(max_vel, dy);
             }
         }
     }
+
 
     private void reiniciar(){
         // Posición inicial
