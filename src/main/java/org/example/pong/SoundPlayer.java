@@ -33,7 +33,4 @@ public class SoundPlayer {
                 clip = null;
             }
     }
-    public static void unmute() { // para volver a activar el sonido
-        audio = true;
-    }
 }

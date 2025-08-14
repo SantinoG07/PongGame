@@ -110,6 +110,8 @@ public class Pelota {
         SoundPlayer.playSound("src/main/resources/sonidos/choque.wav");
         dx *= -1;
 
+
+
         if (Math.abs(dx) < max_vel) {
             dx += Math.copySign(0.5, dx);
             dy += Math.copySign(0.5, dy);
@@ -151,7 +153,9 @@ public class Pelota {
     }
 
     public void despausar(){ // Usar para despausar la pelota después de una pausa mid-game
-
+        if (dx == 0) {
+            ult_velocidad=vel_inicial;
+        }
         dx = ult_velocidad;
         dy = ult_velocidad;
 

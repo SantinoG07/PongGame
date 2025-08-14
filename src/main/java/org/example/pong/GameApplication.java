@@ -14,6 +14,7 @@ public class GameApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.setTitle("Pong Game");
+        stage.setResizable(false);
         stage.show();
     }
 

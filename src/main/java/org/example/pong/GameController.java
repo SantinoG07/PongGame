@@ -119,7 +119,7 @@ public class GameController implements Pelota.PuntoListener {
     @FXML
     public void initialize() {
 
-        overtime.setVisible(false);
+        overtime.setVisible(true);
 
         // Instanciar Jugadores
         player1 = new Player(player1_pos, HEIGHT);

@@ -10,8 +10,8 @@
         <Label fx:id="ganador" text="Ganador " styleClass="titulo"/>
 
         <VBox spacing="20" alignment="CENTER">
-            <Button fx:id="inicioButton" text="Jugar" onAction="#salirmenu" maxWidth="300.0" styleClass="button"/>
-            <Button fx:id="salirButton" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" styleClass="button"/>
+            <Button fx:id="inicioButton" text="Jugar" onAction="#subMenu" maxWidth="300.0" styleClass="button"/>
+            <Button fx:id="salirButton" text="Salir" onAction="#salirJuego" maxWidth="300.0" styleClass="button"/>
         </VBox>
     </VBox>
 </StackPane>

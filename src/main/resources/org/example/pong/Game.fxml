@@ -13,43 +13,68 @@
       fx:controller="org.example.pong.GameController"
       maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="500.0" prefWidth="600.0">
+      prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: black;
+                     -fx-padding: 20;
+                     -fx-border-color: white;
+                     -fx-border-width: 5;
+                     " stylesheets="@estilosmenu.css">
    <children>
 
        <!-- Jugadores -->
-      <Rectangle arcHeight="5.0" fx:id="player1_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="14.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-      <Rectangle arcHeight="5.0" fx:id="player2_pos" arcWidth="5.0" fill="DODGERBLUE" height="58.0" layoutX="576.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player1_pos" styleClass="paleta" arcWidth="5.0" fill="white" height="58.0" layoutX="14.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" fx:id="player2_pos" styleClass="paleta" arcWidth="5.0" fill="white" height="58.0" layoutX="576.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="10.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="5.0" layoutX="0.0" layoutY="100.0" stroke="white" style="-fx-border-color: white;-fx-border-width: 3;" strokeType="INSIDE" width="600.0" />
 
        <!-- Pelota -->
-       <Circle fx:id="pelotaShape" fill="DODGERBLUE" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+       <Circle fx:id="pelotaShape" fill="white" centerX="300.0" centerY="300.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
 
        <!-- Contador -->
-       <Label fx:id="contador1" layoutX="15" layoutY="45" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
-       <Label fx:id="contador2" layoutX="545" layoutY="45" style="-fx-font-size: 26px; -fx-text-fill: black;" text="000" />
+       <Label fx:id="contador1"  layoutX="15" layoutY="45" style="-fx-font-size: 32px; -fx-text-fill: white;" text="000" />
+       <Label fx:id="contador2"  layoutX="535" layoutY="45" style="-fx-font-size: 32px; -fx-text-fill: white;" text="000" />
 
        <!-- Tiempo -->
-       <Label fx:id="tiempo" layoutX="275.0" layoutY="25.0" style="-fx-font-size: 32px; -fx-text-fill: black;" text="00:00" />
-       <Label fx:id="overtime" layoutX="255.0" layoutY="65.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Tiempo Extra" />
+       <Label fx:id="tiempo" layoutX="265.0" layoutY="25.0"  style="-fx-font-size: 32px; -fx-text-fill: white;" text="00:00" />
+       <Label fx:id="overtime" layoutX="245.0" layoutY="65.0" style="-fx-font-size: 20px; -fx-text-fill: white;" text="Tiempo Extra" />
 
        <!-- Name Jugador -->
-       <Label layoutX="15" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 1" />
-       <Label layoutX="490" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: black;" text="Jugador 2" />
+       <Label layoutX="15" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: white;" text="Jugador 1" />
+       <Label layoutX="490" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: white;" text="Jugador 2" />
 
 
    </children>
     <Pane fx:id="menu" visible="false" style="-fx-background-color: rgba(0,0,0,0.7);" prefWidth="600" prefHeight="500">
         <children>
-            <VBox alignment="CENTER" spacing="20" layoutX="150" layoutY="150" prefWidth="300" prefHeight="200" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
-                <Label text="Pausa" style="-fx-font-size: 24px; -fx-text-fill: black;"/>
-                <Button text="Reanudar" onAction="#contadorR" prefWidth="100"/>
-                <Button text="Salir" onAction="#volverAlMenuPrincipal" prefWidth="100"/>
-                <Button text="Silenciar musica" prefWidth="100"/>
-                <Button text="Silenciar FX" prefWidth="100"/>
+            <VBox alignment="CENTER" spacing="20" layoutX="150" layoutY="150" prefWidth="300" prefHeight="250"
+                  style="-fx-background-color: black;
+                     -fx-padding: 20;
+                     -fx-border-color: white;
+                     -fx-border-width: 3;
+                     ">
+                <Label text="Pausa" style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+                <Button text="Reanudar" onAction="#contadorR" prefWidth="150"
+                        styleClass="button"/>
+                <Button text="Salir" onAction="#volverAlMenuPrincipal" prefWidth="150"
+                        styleClass="button"/>
             </VBox>
         </children>
     </Pane>
 
-   <Label visible="false" fx:id="contadorLabel" text="contadorLabel" style="-fx-font-size: 24px; -fx-text-fill: black;" />
+    <Label visible="false"
+           fx:id="contadorLabel"
+           text="contadorLabel"
+           layoutX="165"
+           layoutY="250"
+           style="-fx-font-size: 24px;
+              -fx-text-fill: white;
+              -fx-background-color: rgba(0,0,0,0.8);
+              -fx-border-color: white;
+              -fx-border-width: 3;
+              -fx-background-radius: 10;
+              -fx-border-radius: 10;
+              -fx-alignment: center;
+              -fx-padding: 20 30 20 30;"/>
+
 
 
 </Pane>

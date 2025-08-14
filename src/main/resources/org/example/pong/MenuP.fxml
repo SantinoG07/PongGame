@@ -14,8 +14,6 @@
             </font>
         </Text>
 
-        <Button fx:id="musica" text="Mute goal" onAction="#pausarg" maxWidth="300.0"  styleClass="button"/>
-        <Button fx:id="efectos" text="Mute FX" onAction="#jugarJuego" maxWidth="300.0" styleClass="button"/>
         <VBox spacing="20" alignment="CENTER">
             <Button fx:id="jugarButton" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" styleClass="button"/>
             <Button fx:id="salir" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" styleClass="button"/>

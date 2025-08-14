@@ -3,11 +3,14 @@ package org.example.pong;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +38,9 @@ public class MenuController {
     private CheckBox checkTiempo;
     @FXML
     private CheckBox checkGoles;
+
+    @FXML
+    private Pane menu;
 
     @FXML
     public void initialize() {
@@ -98,10 +104,20 @@ public class MenuController {
         System.exit(0);
     }
 
+    @FXML
+    private void salirJuego(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Pong Game");
+        stage.show();
+    }
+
+
     public void pausarg() {
         SoundPlayer.stopSound();
     }
 
-    public void salirmenu(ActionEvent actionEvent) {
-    }
 }

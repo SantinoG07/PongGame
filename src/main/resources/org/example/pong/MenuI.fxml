@@ -49,7 +49,7 @@
                    styleClass="slider"/>
 
 
-      <Button fx:id="jugarButton" layoutX="240.0" layoutY="320.0" onAction="#jugarJuego" mnemonicParsing="false" text="Jugar" />
+      <Button fx:id="jugarButton" layoutX="260.0" layoutY="320.0" onAction="#jugarJuego" mnemonicParsing="false" text="Jugar" />
 
    </children>
 </Pane>
