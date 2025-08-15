@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.collections.FXCollections;
@@ -118,8 +120,11 @@ public class GameController implements Pelota.PuntoListener {
 
     @FXML
     public void initialize() {
-
-        overtime.setVisible(true);
+        pixelFont = Font.loadFont(getClass().getResourceAsStream("/org/example/pong/fontpixel.ttf"), 10);
+        if (pixelFont == null) {
+            System.out.println("No se pudo cargar la fuente");
+        }
+        overtime.setVisible(false);
 
         // Instanciar Jugadores
         player1 = new Player(player1_pos, HEIGHT);
@@ -213,19 +218,25 @@ public class GameController implements Pelota.PuntoListener {
         lineaTiempo.stop();
     }
 
+    private Font pixelFont;
+
     @FXML
-    private void volverAlMenuPrincipal() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-            Parent menuPrincipalRoot = loader.load();
+    private void salirJuego(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = loader.load();
 
-            Scene escenaActual = menu.getScene();
-
-            escenaActual.setRoot(menuPrincipalRoot);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Aplicar la fuente Pixel
+        if (pixelFont != null) {
+            root.setStyle("-fx-font-family: '" + pixelFont.getFamily() + "';");
         }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/org/example/pong/estilosmenu.css").toExternalForm());
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Pong Game");
+        stage.show();
     }
 
     private boolean juegoPausado = false;

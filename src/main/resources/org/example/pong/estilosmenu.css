@@ -1,7 +1,13 @@
 /* Fondo general de la ventana */
+
+@font-face {
+    font-family: "Pixel";
+    src: url("fontpixel.ttf");
+}
+
 .root {
     -fx-background-color: black;
-    -fx-font-family: Arial, sans-serif;
+    -fx-font-family: "Pixel";
 }
 
 /* Texto con borde blanco (para "Pong Game") */
@@ -22,7 +28,7 @@
     -fx-border-width: 2px;
     -fx-text-fill: white;
     -fx-font-size: 22px;
-    -fx-padding: 10 20;
+    -fx-padding: 10 10;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }

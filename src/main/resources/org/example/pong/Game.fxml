@@ -8,6 +8,8 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.shape.Line?>
+<?import java.lang.Double?>
 <Pane xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.pong.GameController"
@@ -40,6 +42,14 @@
        <Label layoutX="15" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: white;" text="Jugador 1" />
        <Label layoutX="490" layoutY="10" style="-fx-font-size: 22px; -fx-text-fill: white;" text="Jugador 2" />
 
+       <!-- Línea mitad de cancha -->
+       <Line startX="300" startY="105" endX="300" endY="600" stroke="WHITE" strokeWidth="5">
+           <strokeDashArray>
+               <Double fx:value="25"/>
+               <Double fx:value="28.5"/>
+           </strokeDashArray>
+       </Line>
+
 
    </children>
     <Pane fx:id="menu" visible="false" style="-fx-background-color: rgba(0,0,0,0.7);" prefWidth="600" prefHeight="500">
@@ -54,7 +64,7 @@
 
                 <Button text="Reanudar" onAction="#contadorR" prefWidth="150"
                         styleClass="button"/>
-                <Button text="Salir" onAction="#volverAlMenuPrincipal" prefWidth="150"
+                <Button text="Salir" onAction="#salirJuego" prefWidth="150"
                         styleClass="button"/>
             </VBox>
         </children>

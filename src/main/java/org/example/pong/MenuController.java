@@ -8,10 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 
@@ -42,8 +42,17 @@ public class MenuController {
     @FXML
     private Pane menu;
 
+    private Font pixelFont;
+
     @FXML
     public void initialize() {
+        // Cargar la fuente una sola vez
+        pixelFont = Font.loadFont(getClass().getResourceAsStream("/org/example/pong/fontpixel.ttf"), 10);
+        if (pixelFont == null) {
+            System.out.println("No se pudo cargar la fuente");
+        }
+
+        // Tu código actual de sliders y checkboxes
         if (checkTiempo != null && sliderTiempo != null) {
             sliderTiempo.setDisable(!checkTiempo.isSelected());
             checkTiempo.selectedProperty().addListener((obs, oldVal, newVal) -> {
@@ -63,9 +72,13 @@ public class MenuController {
 
     @FXML
     private void jugarJuego() throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Game.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+
+        // Aplicar la fuente al root
+        if (pixelFont != null) {
+            root.setStyle("-fx-font-family: '" + pixelFont.getFamily() + "';");
+        }
 
         GameController gameController = fxmlLoader.getController();
 
@@ -73,25 +86,30 @@ public class MenuController {
         int tiempo = checkTiempo.isSelected() ? (int) sliderTiempo.getValue() : 0;
         int goles = checkGoles.isSelected() ? (int) sliderGoles.getValue() : 0;
 
-        // Pasa los valores de los sliders
-        gameController.setParametros(
-                velocidad,
-                tiempo,
-                goles
-        );
+        gameController.setParametros(velocidad, tiempo, goles);
 
         Stage stage = (Stage) jugarButton.getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/org/example/pong/estilosmenu.css").toExternalForm());
+
         stage.setScene(scene);
         stage.setTitle("Pong Game");
         stage.show();
     }
 
+
     @FXML
     private void subMenu() throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MenuI.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
 
+        // Aplicar la fuente Pixel
+        if (pixelFont != null) {
+            root.setStyle("-fx-font-family: '" + pixelFont.getFamily() + "';");
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/org/example/pong/estilosmenu.css").toExternalForm());
 
         Stage stage = (Stage) inicioButton.getScene().getWindow();
         stage.setScene(scene);
@@ -99,20 +117,10 @@ public class MenuController {
         stage.show();
     }
 
+
     @FXML
     private void salirAplicacion() {
         System.exit(0);
-    }
-
-    @FXML
-    private void salirJuego(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Pong Game");
-        stage.show();
     }
 
 

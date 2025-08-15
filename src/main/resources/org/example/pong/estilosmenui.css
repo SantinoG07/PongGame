@@ -2,7 +2,6 @@
 .root {
     -fx-background-color: black;
     -fx-text-fill: white;
-    -fx-font-family: "Arial";
 }
 
 /* Contenedor central */
@@ -19,6 +18,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-text-transform: uppercase;
+
 }
 
 /* Sliders estilo retro */

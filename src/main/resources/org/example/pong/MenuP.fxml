@@ -16,7 +16,7 @@
 
         <VBox spacing="20" alignment="CENTER">
             <Button fx:id="jugarButton" text="Reanudar" onAction="#jugarJuego" maxWidth="300.0" styleClass="button"/>
-            <Button fx:id="salir" text="Salir" onAction="#salirAplicacion" maxWidth="300.0" styleClass="button"/>
+            <Button fx:id="salir" text="Salir" onAction="#salirJuego" maxWidth="300.0" styleClass="button"/>
         </VBox>
     </VBox>
 </StackPane>
