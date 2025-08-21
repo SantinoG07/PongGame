@@ -52,7 +52,7 @@ public class MenuController {
             System.out.println("No se pudo cargar la fuente");
         }
 
-        // Tu código actual de sliders y checkboxes
+     
         if (checkTiempo != null && sliderTiempo != null) {
             sliderTiempo.setDisable(!checkTiempo.isSelected());
             checkTiempo.selectedProperty().addListener((obs, oldVal, newVal) -> {
